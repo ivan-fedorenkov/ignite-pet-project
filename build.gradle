@@ -5,6 +5,7 @@ plugins {
 ext {
     igniteVersion = '2.10.0'
     springVersion = '4.3.15.RELEASE'
+    slf4jVersion = '1.7.25'
     junitVersion = '4.13.2'
 }
 
@@ -24,6 +25,8 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-context', version: "$springVersion"
     implementation group: 'org.springframework', name: 'spring-context-support', version: "$springVersion"
     implementation group: 'org.springframework', name: 'spring-expression', version: "$springVersion"
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
 
     testImplementation group: 'junit', name: 'junit', version: "$junitVersion"
     testImplementation group: 'org.springframework', name: 'spring-expression', version: "$springVersion"
