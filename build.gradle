@@ -4,8 +4,9 @@ plugins {
 
 ext {
     igniteVersion = '2.10.0'
-    springVersion = '4.3.15.RELEASE'
+    springVersion = '5.2.15.RELEASE'
     junitVersion = '4.13.2'
+    log4j2Version = '2.14.1'
 }
 
 group 'org.example'
@@ -18,12 +19,17 @@ repositories {
 dependencies {
     implementation group: 'org.apache.ignite', name: 'ignite-core', version: "$igniteVersion"
     implementation group: 'org.apache.ignite', name: 'ignite-spring', version: "$igniteVersion"
+    implementation group: 'org.apache.ignite', name: 'ignite-slf4j', version: "$igniteVersion"
 
     implementation group: 'org.springframework', name: 'spring-core', version: "$springVersion"
     implementation group: 'org.springframework', name: 'spring-beans', version: "$springVersion"
     implementation group: 'org.springframework', name: 'spring-context', version: "$springVersion"
     implementation group: 'org.springframework', name: 'spring-context-support', version: "$springVersion"
     implementation group: 'org.springframework', name: 'spring-expression', version: "$springVersion"
+
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "$log4j2Version"
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4j2Version"
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "$log4j2Version"
 
     testImplementation group: 'junit', name: 'junit', version: "$junitVersion"
     testImplementation group: 'org.springframework', name: 'spring-expression', version: "$springVersion"
