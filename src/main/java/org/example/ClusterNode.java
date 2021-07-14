@@ -28,8 +28,9 @@ public class ClusterNode {
 
         IgniteConfiguration igniteConfiguration = applicationContext.getBean(IgniteConfiguration.class);
         try (Ignite ignite = Ignition.start(igniteConfiguration)) {
-            ignite.cluster().baselineAutoAdjustEnabled(true);
-            ignite.cluster().baselineAutoAdjustTimeout(BASELINE_AUTO_ADJUSTMENT_TIMEOUT);
+            // Works not so good, use control.sh instead
+            /*ignite.cluster().baselineAutoAdjustEnabled(true);
+            ignite.cluster().baselineAutoAdjustTimeout(BASELINE_AUTO_ADJUSTMENT_TIMEOUT);*/
 
             Object nodeJoinedMonitor = new Object();
             Object nodeLeftMonitor = new Object();
@@ -100,7 +101,7 @@ public class ClusterNode {
             // Clean up
             cancelled.set(true);
             synchronized (nodeLeftMonitor) {
-                nodeJoinedMonitor.notifyAll();
+                nodeLeftMonitor.notifyAll();
             }
             synchronized (nodeJoinedMonitor) {
                 nodeJoinedMonitor.notifyAll();
