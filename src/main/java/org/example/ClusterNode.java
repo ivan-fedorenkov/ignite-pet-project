@@ -19,7 +19,7 @@ public class ClusterNode {
 
     private static final int QUORUM = 3;
     private static final int MIN_QUORUM = 2;
-    private static final long BASELINE_AUTO_ADJUSTMENT_TIMEOUT = 10_000;
+    private static final long BASELINE_AUTO_ADJUSTMENT_TIMEOUT = 20_000;
 
     public static void main(String[] args) throws Throwable {
         AnnotationConfigApplicationContext applicationContext =
@@ -28,9 +28,8 @@ public class ClusterNode {
 
         IgniteConfiguration igniteConfiguration = applicationContext.getBean(IgniteConfiguration.class);
         try (Ignite ignite = Ignition.start(igniteConfiguration)) {
-            // Works not so good, use control.sh instead
-            /*ignite.cluster().baselineAutoAdjustEnabled(true);
-            ignite.cluster().baselineAutoAdjustTimeout(BASELINE_AUTO_ADJUSTMENT_TIMEOUT);*/
+            ignite.cluster().baselineAutoAdjustEnabled(true);
+            ignite.cluster().baselineAutoAdjustTimeout(BASELINE_AUTO_ADJUSTMENT_TIMEOUT);
 
             Object nodeJoinedMonitor = new Object();
             Object nodeLeftMonitor = new Object();
