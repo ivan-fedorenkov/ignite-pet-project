@@ -1,12 +1,10 @@
 package org.example;
 
 import org.apache.ignite.Ignite;
-import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cluster.ClusterState;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.events.EventType;
-import org.example.cache.Cache;
 import org.example.config.ClusterNodeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,9 +61,6 @@ public class ClusterNode {
                                 logger.info("Activating the cluster");
                                 ignite.cluster().state(ClusterState.ACTIVE);
                                 logger.info("Cluster has been activated");
-
-                                //logger.info("Populating cache");
-                                //populateCache(ignite);
                             }
                         }
                     } catch (InterruptedException e) {
@@ -106,17 +101,6 @@ public class ClusterNode {
                 nodeJoinedMonitor.notifyAll();
             }
 
-        }
-    }
-
-    private static void populateCache(Ignite ignite) {
-        try {
-            IgniteCache<Long, String> testCache = ignite.cache(Cache.TEST.getName());
-            for (int i = 1; i < 100_000; i++) {
-                testCache.put((long) i, "Person#" + i);
-            }
-        } catch (Throwable t) {
-            logger.error("Failed to populate cache", t);
         }
     }
 }
