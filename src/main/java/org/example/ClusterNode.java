@@ -17,8 +17,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ClusterNode {
     private static final Logger logger = LoggerFactory.getLogger(ClusterNode.class);
 
-    private static final int QUORUM = 3;
-    private static final int MIN_QUORUM = 2;
+    private static final int QUORUM = 2;
+    private static final int MIN_QUORUM = 1;
     private static final long BASELINE_AUTO_ADJUSTMENT_TIMEOUT = 20_000;
 
     public static void main(String[] args) throws Throwable {
@@ -64,8 +64,8 @@ public class ClusterNode {
                                 ignite.cluster().state(ClusterState.ACTIVE);
                                 logger.info("Cluster has been activated");
 
-                                logger.info("Populating cache");
-                                populateCache(ignite);
+                                //logger.info("Populating cache");
+                                //populateCache(ignite);
                             }
                         }
                     } catch (InterruptedException e) {
