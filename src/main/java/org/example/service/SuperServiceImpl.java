@@ -11,7 +11,6 @@ import org.apache.ignite.resources.LoggerResource;
 import org.apache.ignite.services.Service;
 import org.apache.ignite.services.ServiceContext;
 import org.example.cache.Cache;
-import org.example.config.ClusterNodeConfig;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -28,7 +27,7 @@ public class SuperServiceImpl implements SuperService, Service {
     @IgniteInstanceResource
     private transient Ignite ignite;
 
-    @LoggerResource(categoryClass = ClusterNodeConfig.MySuperService.class)
+    @LoggerResource(categoryClass = SuperServiceImpl.class)
     private transient IgniteLogger logger;
 
     @Override
