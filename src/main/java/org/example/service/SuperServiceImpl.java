@@ -65,20 +65,20 @@ public class SuperServiceImpl implements SuperService, Service {
      */
     private Set<Integer> invokeTasksAsyncWithRetry(Set<Integer> keys, int retryAttempts) {
         int attempt = -1;
-        Set<Integer> failedKeys;
+        Set<Integer> remainingKeys = new HashSet<>(keys);
         do {
             attempt++;
-            failedKeys = invokeTasksAsync(keys);
-            if (!failedKeys.isEmpty()) {
-                logger.warning("Failed to execute jobs. Will retry. Keys=" + failedKeys);
+            remainingKeys = invokeTasksAsync(remainingKeys);
+            if (!remainingKeys.isEmpty()) {
+                logger.warning("Failed to execute jobs. Will retry. Keys=" + remainingKeys);
             }
-        } while (!failedKeys.isEmpty() && attempt < retryAttempts);
+        } while (!remainingKeys.isEmpty() && attempt < retryAttempts);
 
-        if (!failedKeys.isEmpty()) {
-            logger.error("Failed to execute jobs. Will not retry any more. Keys=" + failedKeys);
+        if (!remainingKeys.isEmpty()) {
+            logger.error("Failed to execute jobs. Will not retry any more. Keys=" + remainingKeys);
         }
 
-        return failedKeys;
+        return remainingKeys;
     }
 
     /**
